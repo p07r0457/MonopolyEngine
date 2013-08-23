@@ -26,60 +26,38 @@
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 using System;
+using NUnit.Framework;
+using P07r0457.Monopoly.Engine;
 
-namespace P07r0457.Monopoly.Engine
+namespace P07r0457.Monopoly.EngineTests
 {
-	/// <author>Kyle Maher</author>
-	/// <date>2013-07-30</date>
-	/// <summary>
-	/// A standard, six-sided dice.
-	/// </summary>
-	public class StandardDice : IDice
-	{
+    [TestFixture()]
+    public class GameBoardTests
+    {
+
+        private readonly GameBoard _gameBoard;
+
+
+        public GameBoardTests()
+        {
+            _gameBoard = new GameBoard();
+        }
+
 
         /// <author>Kyle Maher</author>
-        /// <date>2013-07-30</date>
-        /// <returns>
-        /// The result of the last dice roll.
-        /// </returns>
-        public int Result { get; private set; }
+        /// <date>2013-08-22</date>
+        /// <summary>
+        /// Ensure that the Game Board has the expected number of spaces.
+        /// There are 11 spaces per side, with 4 sides (square board).
+        /// However, the corners are shared, so we subtract 1 space for each corner (4).
+        /// This gives us the result of 40 as the expected count of spaces.
+        /// </summary>
+        [Test()]
+        public void GameBoardHasCorrectNumberOfSpaces()
+        {
+            Assert.That(_gameBoard.BoardSpaces.Count == 40);
+        }
 
-        /// <author>Kyle Maher</author>
-        /// <date>2013-07-30</date>
-		/// <summary>
-		/// Random Number Generator
-		/// </summary>
-		private Random _randomEngine;
-
-
-		/// <author>Kyle Maher</author>
-		/// <date>2013-07-30</date>
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <remarks>
-		/// Initialize Random Number Generator
-		/// </remarks>
-		public StandardDice()
-		{
-			_randomEngine = new Random();
-		}
-
-
-		/// <author>Kyle Maher</author>
-		/// <date>2013-07-30</date>
-		/// <summary>
-		/// Roll the dice.
-		/// </summary>
-		/// <returns>
-		/// Returns a zero-based integer that denotes what side of the dice landed up.
-		/// </returns>
-		public int Roll()
-		{
-            Result = _randomEngine.Next(1, 6);
-
-            return Result;
-		}
-
-	}
+    }
 }
+

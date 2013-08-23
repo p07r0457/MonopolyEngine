@@ -25,61 +25,68 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-using System;
+
 
 namespace P07r0457.Monopoly.Engine
 {
-	/// <author>Kyle Maher</author>
-	/// <date>2013-07-30</date>
-	/// <summary>
-	/// A standard, six-sided dice.
-	/// </summary>
-	public class StandardDice : IDice
-	{
+    public class GamePiece
+    {
+
+        #region "Enums"
+
 
         /// <author>Kyle Maher</author>
-        /// <date>2013-07-30</date>
-        /// <returns>
-        /// The result of the last dice roll.
-        /// </returns>
-        public int Result { get; private set; }
+        /// <date>2013-08-22</date>
+        /// <summary>
+        /// Define the various tokens that a user can choose to represent them on the game board.
+        /// </summary>
+        public enum Tokens
+        {
+            // Current Tokens
+            Battleship,
+            Boot,
+            Cat,
+            Dog,
+            Racecar,
+            TopHat,
+            Thimble,
+            Wheelbarrow,
+
+            // Retired Tokens
+            Howitzer, // A.K.A. Cannon
+            Iron,
+            ManOnHorseback,
+            SackOfMoney,
+
+            // Retired Tokens, circa 1950s
+            Lantern,
+            Purse,
+            RockingHorse
+        }
+
+        #endregion
+
+        #region "Public Properties"
+
+        public string Name { get; private set; }
+
+        #endregion
+
+        #region "Constructor"
 
         /// <author>Kyle Maher</author>
-        /// <date>2013-07-30</date>
-		/// <summary>
-		/// Random Number Generator
-		/// </summary>
-		private Random _randomEngine;
+        /// <date>2013-08-22</date>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="P07r0457.Monopoly.Engine.GamePiece"/> class.
+        /// </summary>
+        /// <param name="name">The name of the game pieces owner.</param>
+        public GamePiece(string name)
+        {
+            Name = name;
+        }
 
+        #endregion
 
-		/// <author>Kyle Maher</author>
-		/// <date>2013-07-30</date>
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <remarks>
-		/// Initialize Random Number Generator
-		/// </remarks>
-		public StandardDice()
-		{
-			_randomEngine = new Random();
-		}
-
-
-		/// <author>Kyle Maher</author>
-		/// <date>2013-07-30</date>
-		/// <summary>
-		/// Roll the dice.
-		/// </summary>
-		/// <returns>
-		/// Returns a zero-based integer that denotes what side of the dice landed up.
-		/// </returns>
-		public int Roll()
-		{
-            Result = _randomEngine.Next(1, 6);
-
-            return Result;
-		}
-
-	}
+    }
 }
+

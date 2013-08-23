@@ -25,61 +25,37 @@
 //  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-using System;
+using NUnit.Framework;
+using P07r0457.Monopoly.Engine;
 
-namespace P07r0457.Monopoly.Engine
+namespace P07r0457.Monopoly.EngineTests
 {
-	/// <author>Kyle Maher</author>
-	/// <date>2013-07-30</date>
-	/// <summary>
-	/// A standard, six-sided dice.
-	/// </summary>
-	public class StandardDice : IDice
-	{
+    [TestFixture()]
+    public class DiceTests
+    {
 
         /// <author>Kyle Maher</author>
-        /// <date>2013-07-30</date>
-        /// <returns>
-        /// The result of the last dice roll.
-        /// </returns>
-        public int Result { get; private set; }
+        /// <date>2013-08-21</date>
+        /// <summary>
+        /// Test one million dice rolls.
+        /// Ensures that each result falls within the expected range.
+        /// </summary>
+        [Test()]
+        public void DiceResultsWithinExpectedBounds()
+        {
+            var dice = new StandardDice();
 
-        /// <author>Kyle Maher</author>
-        /// <date>2013-07-30</date>
-		/// <summary>
-		/// Random Number Generator
-		/// </summary>
-		private Random _randomEngine;
+            for (int i = 0; i < 1000000; i++)
+            {
+                dice.Roll();
 
+                Assert.That(dice.Result >= 1,
+                            "Result fell below the lower bound of [1].");
+                Assert.That(dice.Result <= 6,
+                            "Result was above the upper bound of [6].");
+            }
+        }
 
-		/// <author>Kyle Maher</author>
-		/// <date>2013-07-30</date>
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <remarks>
-		/// Initialize Random Number Generator
-		/// </remarks>
-		public StandardDice()
-		{
-			_randomEngine = new Random();
-		}
-
-
-		/// <author>Kyle Maher</author>
-		/// <date>2013-07-30</date>
-		/// <summary>
-		/// Roll the dice.
-		/// </summary>
-		/// <returns>
-		/// Returns a zero-based integer that denotes what side of the dice landed up.
-		/// </returns>
-		public int Roll()
-		{
-            Result = _randomEngine.Next(1, 6);
-
-            return Result;
-		}
-
-	}
+    }
 }
+
